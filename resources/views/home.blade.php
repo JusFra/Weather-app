@@ -17,9 +17,6 @@
                     {{ __('You are logged in!') }}
                 </div>
             </div>
-
-            <br>
-            <a href="{{ route('add_city')}}"><button class="btn btn-primary">Add city</button></a>
         </div>
     </div>
 </div>

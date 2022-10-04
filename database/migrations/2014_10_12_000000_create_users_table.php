@@ -24,7 +24,8 @@ return new class extends Migration
         });
 
         Schema::create('cities', function (Blueprint $table) {
-            $table->id('city_id');
+            $table->id();
+            $table->integer('city_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
