@@ -22,6 +22,13 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        Schema::create('cities', function (Blueprint $table) {
+            $table->id('city_id');
+            $table->unsignedBigInteger('user_id');
+            $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
+        });
     }
 
     /**
@@ -32,5 +39,6 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
+        Schema::dropIfExists('cities');
     }
 };
