@@ -13,6 +13,12 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
+    <!-- JQuery -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('jquery-ui.min.css') }}">
+    
+    <script type="text/javascript" src="{{ asset('jquery-3.6.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('jquery-ui.min.js') }}"></script>
+
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>

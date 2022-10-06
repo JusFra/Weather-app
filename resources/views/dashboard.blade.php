@@ -20,6 +20,8 @@
 
             <br>
             <a href="{{ route('add_city')}}"><button class="btn btn-primary">Add city</button></a>
+            <br><br>
+            <a href="{{ route('main_page')}}"><button class="btn btn-primary">My city</button></a>
         </div>
     </div>
 </div>
