@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WeatherController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +37,5 @@ require __DIR__.'/auth.php';
 
 Route::get("/add_city", [UserController::class, 'search'])->middleware(['auth'])->name('add_city');
 Route::post("/cities/getCities/", [UserController::class, 'getCities'])->middleware(['auth'])->name("cities.getCities");
+
+Route::get("/save_weather", [WeatherController::class, 'save_weather'])->middleware(['auth'])->name('save_weather');

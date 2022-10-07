@@ -5,48 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\City;
 use App\Models\City2;
 use Illuminate\Http\Request;
-use GuzzleHttp\Psr7\Response;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
 
 class UserController extends Controller
 {
-    public function search(Request $request)
+    public function search()
     {
-
         return view('cities.index');
-        // $cities = json_decode(file_get_contents(storage_path() . "/city.list.json"), true);
-
-        // $citiesPL=[];
-        // foreach($cities as $city) {
-        //     if($city['country'] == "PL") {
-        //         array_push($citiesPL, $city); 
-        //     }
-        // }
-        
-        
-
-        // return view('add_city', [
-        //     'citiesPL' => $citiesPL
-        // ]);
-        
-
-        // if(isset($_GET['query'])){
-        //     $search_text = $_GET['query'];
-        //     $collection = collect($citiesPL);
-        //     $search_citiesPL = $collection->where('name', $search_text);
-        //     return view('add_city', [
-        //         'search_cities' => $search_citiesPL
-        //     ]);
-
-        // } else {
-        //     return view('add_city', [
-        //         'cities' => $cities,
-        //     ]);
-        // } 
     }
 
     ## AJAX request
@@ -99,7 +65,8 @@ class UserController extends Controller
         $user_id = Auth::user()->id;
         
         return view('main_page', [
-            'cities' => City::where('user_id', $user_id)->get()
+            'cities' => City::where('user_id', $user_id)->get(),
+            'name_of_cities' => City2::all()
         ]);
     }
 }
