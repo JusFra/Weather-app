@@ -32,12 +32,13 @@ class WeatherCommand extends Command
     public function handle()
     {
         $cities = City::all();
-        $key = 'cecf15fe33faf9ec32e8e4dcbeec8e09';
+        $key = config('weather.api_key');
+        $url = config('weather.api_url');
 
         foreach ($cities as $city)
         {
             $city_id = $city['city_id'];
-            $response = Http::get('https://api.openweathermap.org/data/2.5/weather?id='.$city_id.'&appid='.$key);
+            $response = Http::get($url.$city_id.'&appid='.$key.'&units=metric');
             $temp = $response['main']['temp'];
             $humidity = $response['main']['humidity'];
             $name = $response['name'];

@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\City;
 use App\Models\City2;
+use App\Models\Weather;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class UserController extends Controller
 {
@@ -56,6 +59,20 @@ class UserController extends Controller
             $city->city_id = $request->city_id;
             $city->user_id = Auth::user()->id;
             $city->save();
+
+            $selected_city_id = DB::table('cities')->latest('created_at')->first()->id;
+            
+            $key = config('weather.api_key');
+            $url = config('weather.api_url');
+                
+            $response = Http::get($url.$request->city_id.'&appid='.$key.'&units=metric');
+            $temp = $response['main']['temp'];
+            $humidity = $response['main']['humidity'];            
+            $name = $response['name'];
+                
+            $cart = ['selected_city_id' => $selected_city_id, 'name' => $name, 'temp' => $temp, 'humidity' => $humidity];
+            $weather = Weather::create($cart);
+
             return redirect(route('dashboard'));
         }
     }
@@ -63,10 +80,32 @@ class UserController extends Controller
     public function my_cities()
     {
         $user_id = Auth::user()->id;
+        $count = City::where('user_id', $user_id)->count();
         
         return view('main_page', [
-            'cities' => City::where('user_id', $user_id)->get(),
-            'name_of_cities' => City2::all()
+            'weather' => DB::table('weather')
+            ->join('cities', 'weather.selected_city_id', '=', 'cities.id')
+            ->where('user_id', $user_id)
+            ->orderBy('weather.created_at', 'DESC')
+            ->limit($count)
+            ->get()
         ]);
+    }
+
+    public function plot($id)
+    {
+        $result = DB::table('weather')
+        ->where('selected_city_id', $id)
+        ->limit(48)
+        ->get();
+        $data = "";
+
+        foreach($result as $val)
+        {
+            $data.= "['".$val->created_at."', ".$val->temp.", ".$val->humidity."],";
+            $name = $val->name;
+        }
+        
+        return view('weather_plot', compact('data'), compact('name'));
     }
 }

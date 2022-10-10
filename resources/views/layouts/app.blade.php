@@ -18,9 +18,12 @@
     
     <script type="text/javascript" src="{{ asset('jquery-3.6.1.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('jquery-ui.min.js') }}"></script>
+ 
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    @yield('head')
 </head>
 <body>
     <div id="app">

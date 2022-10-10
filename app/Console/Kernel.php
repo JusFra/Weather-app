@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('save:weather')->everyThirtyMinutes();
+        $schedule->command('save:weather')->everyMinute();
     }
 
     /**
