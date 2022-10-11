@@ -1,12 +1,29 @@
 @extends('layouts.app')
 
-@section('content')
+@section('head')
+    <!-- JQuery -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('jquery-ui.min.css') }}">
+    
+    <script type="text/javascript" src="{{ asset('jquery-3.6.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('jquery-ui.min.js') }}"></script>
+@endsection
+
+    @section('content')
+    @if (session('status'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ session('status') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+
+
+
     <div class="container">
         <div class="row">
             <div class="col-md-6" style="margin-top:40px">
                 <h4>Search city</h4>
 
-                <form method="POST" action="{{ route('city.store') }}">
+                <form method="POST" action="{{ route('store') }}">
                 @csrf
                     <div class="mb-3">
                     <input type="text" id="city_name" name="city_name">

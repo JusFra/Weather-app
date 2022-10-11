@@ -53,7 +53,7 @@ class UserController extends Controller
     {
         if (City::where(['city_id' => $request->city_id, 'user_id' => Auth::user()->id])->first())
         {
-            return redirect(route('add_city'));
+            return redirect(route('add_city'))->with('status', 'This city is already on your list!');
         } else {
             $city = new City;
             $city->city_id = $request->city_id;
@@ -73,7 +73,7 @@ class UserController extends Controller
             $cart = ['selected_city_id' => $selected_city_id, 'name' => $name, 'temp' => $temp, 'humidity' => $humidity];
             $weather = Weather::create($cart);
 
-            return redirect(route('dashboard'));
+            return redirect(route('dashboard'))->with('status', 'The city has been added to your list!');
         }
     }
 
@@ -82,7 +82,7 @@ class UserController extends Controller
         $user_id = Auth::user()->id;
         $count = City::where('user_id', $user_id)->count();
         
-        return view('main_page', [
+        return view('dashboard', [
             'weather' => DB::table('weather')
             ->join('cities', 'weather.selected_city_id', '=', 'cities.id')
             ->where('user_id', $user_id)

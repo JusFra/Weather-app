@@ -23,16 +23,18 @@
 
         chart.draw(data, options);
       }
+
+      
     </script>
 
 @endsection
 
 @section('content')
 
-<div class="container">
+<div class="container px-lg-5">
     <h3><strong>{{ $name }}</strong></h3>
-    <div id="curve_chart" style="width: 900px; height: 500px"></div>
+    <div id="curve_chart" style="width: 95%; height: 500px"></div>
+    
     
 </div>
-    
 @endsection
