@@ -41,9 +41,10 @@ class WeatherCommand extends Command
             $response = Http::get($url.$city_id.'&appid='.$key.'&units=metric');
             $temp = $response['main']['temp'];
             $humidity = $response['main']['humidity'];
+            $icon = $response['weather'][0]['icon'];
             $name = $response['name'];
             
-            $cart = ['selected_city_id' => $city['id'], 'name' => $name, 'temp' => $temp, 'humidity' => $humidity];
+            $cart = ['selected_city_id' => $city['id'], 'name' => $name, 'temp' => $temp, 'humidity' => $humidity, 'icon' => $icon];
             $weather = Weather::create($cart);
         }
         info('save');

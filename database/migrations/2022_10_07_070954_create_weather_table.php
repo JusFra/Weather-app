@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->decimal('temp');
             $table->decimal('humidity');
+            $table->string('icon');
             $table->timestamps();
             $table->foreign('selected_city_id')->references('id')->on('cities')->onDelete('cascade');
         });

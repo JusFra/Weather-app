@@ -32,8 +32,11 @@
 @section('content')
 
 <div class="container px-lg-5">
-    <h3><strong>{{ $name }}</strong></h3>
-    <div id="curve_chart" style="width: 95%; height: 500px"></div>
+  <h3><strong>{{ $name }}</strong></h3>  
+    
+  <div id="curve_chart" style="width: 95%; height: 500px"></div>
+
+  <a href="/dashboard"><button class="btn btn-secondary">{{ __('Back') }}</button></a>
     
     
 </div>

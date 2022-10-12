@@ -52,10 +52,14 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        if (City::where(['city_id' => $request->city_id, 'user_id' => Auth::user()->id])->first())
-        {
-            return redirect(route('add_city'))->with('status', 'This city is already on your list!');
+        if (City::where(['city_id' => $request->city_id, 'user_id' => Auth::user()->id])->first()) {
+
+            return redirect(route('add_city'))->with('status', __('weather.messages.error.city_exists'));
+        } elseif (City::where('user_id', Auth::user()->id)->count() >= 10) {
+            
+            return redirect(route('add_city'))->with('status', __('weather.messages.error.too_many'));
         } else {
+        
             $city = new City;
             $city->city_id = $request->city_id;
             $city->user_id = Auth::user()->id;
@@ -68,13 +72,14 @@ class UserController extends Controller
                 
             $response = Http::get($url.$request->city_id.'&appid='.$key.'&units=metric');
             $temp = $response['main']['temp'];
-            $humidity = $response['main']['humidity'];            
+            $humidity = $response['main']['humidity'];  
+            $icon = $response['weather'][0]['icon'];
             $name = $response['name'];
-                
-            $cart = ['selected_city_id' => $selected_city_id, 'name' => $name, 'temp' => $temp, 'humidity' => $humidity];
+
+            $cart = ['selected_city_id' => $selected_city_id, 'name' => $name, 'temp' => $temp, 'humidity' => $humidity, 'icon' => $icon];            
             $weather = Weather::create($cart);
 
-            return redirect(route('dashboard'))->with('status', 'The city has been added to your list!');
+            return redirect(route('dashboard'))->with('status', __('weather.messages.success.add_city'));
         }
     }
 
@@ -113,6 +118,6 @@ class UserController extends Controller
     public function destroy($id)
     {
         $city = City::where(['city_id' => $id, 'user_id' => Auth::user()->id])->firstorfail()->delete();
-        return redirect()->route('dashboard')->with('status', 'The city has been removed from your list!');
+        return redirect()->route('dashboard')->with('status', __('weather.messages.success.city_removed'));
     }
 }

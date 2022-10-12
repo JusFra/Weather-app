@@ -3476,7 +3476,7 @@ textarea.form-control-lg {
   text-decoration: underline;
 }
 .btn-link:hover {
-  color: #0a58ca;
+  color: #030f22;
 }
 .btn-link:disabled, .btn-link.disabled {
   color: #6c757d;
@@ -6445,7 +6445,7 @@ textarea.form-control-lg {
   color: #6c757d;
 }
 .link-secondary:hover, .link-secondary:focus {
-  color: #565e64;
+  color: black;
 }
 
 .link-success {
@@ -8019,6 +8019,10 @@ textarea.form-control-lg {
 
 .bg-opacity-10 {
   --bs-bg-opacity: 0.1;
+}
+
+.bg-opacity-15 {
+  --bs-bg-opacity: 0.15;
 }
 
 .bg-opacity-25 {

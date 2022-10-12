@@ -31,7 +31,7 @@
                     <!-- Select city id -->
                     <input type="text" id="city_id" name="city_id" hidden>
 
-                    <button type="submit" class="btn btn-primary">Add city</button>
+                    <button type="submit" class="btn btn-primary">{{ __('weather.button.add_city') }}</button>
                     </div>
                 </form>
             </div>

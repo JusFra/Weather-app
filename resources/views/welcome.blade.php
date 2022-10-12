@@ -28,12 +28,12 @@
                         @if (Route::has('login'))
                             <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                                 @auth
-                                    <li class="nav-item"><a href="{{ url('/dashboard') }}" class="nav-link">Home</a></li>
+                                    <li class="nav-item"><a href="{{ url('/dashboard') }}" class="nav-link">{{ __('Home') }}</a></li>
                                 @else
-                                    <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Log in</a></li>
+                                    <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">{{ __('Login') }}</a></li>
 
                                     @if (Route::has('register'))
-                                    <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Register</a></li>
+                                    <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">{{ __('Register') }}</a></li>
                                     @endif
                                 @endauth
                             </div>

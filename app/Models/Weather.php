@@ -14,7 +14,8 @@ class Weather extends Model
         'selected_city_id',
         'name',
         'temp',
-        'humidity'
+        'humidity',
+        'icon'
     ];
 
     public function city()
