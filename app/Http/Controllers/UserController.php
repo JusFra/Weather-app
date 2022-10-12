@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
+
 class UserController extends Controller
 {
     public function search()
@@ -107,5 +108,11 @@ class UserController extends Controller
         }
         
         return view('weather_plot', compact('data'), compact('name'));
+    }
+
+    public function destroy($id)
+    {
+        $city = City::where(['city_id' => $id, 'user_id' => Auth::user()->id])->firstorfail()->delete();
+        return redirect()->route('dashboard')->with('status', 'The city has been removed from your list!');
     }
 }

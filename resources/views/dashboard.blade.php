@@ -1,6 +1,5 @@
 @extends('layouts.app')
 
-@section('content')
 
 @section('content')
 @if (session('status'))
@@ -30,6 +29,7 @@
     <div class="row gx-lg-5">
       @foreach ($weather as $w)
         <div class="col-lg-6 col-xxl-4 mb-5">
+          
           <div class="card bg-light border-0 h-100">
             <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
               <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-weather/ilu3.webp"
@@ -37,6 +37,17 @@
               <a class="link-secondary" href="{{ route('weather_plot', $w->id) }}" style="text-decoration:none"><h2 class="fs-4 fw-bold">{{ $w->name }}</h2></a>
               <p class="mb-0 text-muted mb-0">temperature: {{ $w->temp }}°C</p>
               <p class="mb-0 text-muted mb-0">humidity: {{ $w->humidity }}%</p>
+              <a href="{{ route('dashboard') }}"
+                onclick="event.preventDefault();
+                document.getElementById(
+                'delete-form-{{$w->city_id}}').submit();"
+              >Delete</a>
+              <form id="delete-form-{{$w->city_id}}" 
+                + action="{{route('city_destroy', $w->city_id)}}"
+                method="post">
+                @csrf @method('DELETE')
+              </form>
+
             </div>
           </div>
         </div>

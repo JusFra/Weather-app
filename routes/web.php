@@ -33,3 +33,5 @@ require __DIR__.'/auth.php';
 //Route::get('city', [CityController::class, 'index']);
 
 Route::get("/weather_plot/{id}", [UserController::class, 'plot'])->middleware(['auth'])->name('weather_plot');
+
+Route::delete("/dashboard/{id}", [UserController::class, 'destroy'])->middleware(['auth'])->name('city_destroy');
